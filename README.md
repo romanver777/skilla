@@ -1,4 +1,4 @@
-Тестовое задание для "Skilla" - страница "Звонки"
+Тестовое задание для "Skilla" - страница "Звонки"<br>
 React18(FC), redux-toolkit, scss-modules
 
 - листинг звонков с выборкой по датам
@@ -7,4 +7,4 @@ React18(FC), redux-toolkit, scss-modules
 - сортировка на клиенте
 - меню - статика без функционала, активный раздел "Звонки"
 
-skillacalls.netlify.app
+https://skillacalls.netlify.app
