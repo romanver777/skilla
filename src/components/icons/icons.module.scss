@@ -1,0 +1,84 @@
+.btn {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+svg {
+  path {
+    fill: #adbfdf;
+    transition: 0.3s;
+  }
+  &:hover {
+    path {
+      fill: #002cfb;
+      transition: 0.3s;
+    }
+  }
+  &:active {
+    path {
+      fill: #002cfb;
+    }
+  }
+}
+.cross{
+  margin-left: 5px;
+}
+.add {
+  fill: #002cfb;
+}
+.arrowUp {
+  transform: rotate(180deg);
+}
+.arrowLeft {
+  transform: rotate(90deg);
+}
+.arrowRight {
+  transform: rotate(-90deg);
+}
+.inOk {
+  path {
+    fill: #002cfb;
+  }
+  &:hover {
+    path {
+      fill: #002cfb;
+    }
+  }
+}
+.inErr {
+  path {
+    fill: #ea1a4f;
+  }
+  &:hover {
+    path {
+      fill: #ea1a4f;
+    }
+  }
+}
+.outOk {
+  transform: rotate(180deg);
+
+  path {
+    fill: #28a879;
+  }
+  &:hover {
+    path {
+      fill: #28a879;
+    }
+  }
+}
+.outErr {
+  transform: rotate(180deg);
+
+  path {
+    fill: #ea1a4f;
+  }
+  &:hover {
+    path {
+      fill: #ea1a4f;
+    }
+  }
+}
+.downAdded{
+  fill: #002CFB;
+}

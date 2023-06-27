@@ -1,0 +1,40 @@
+.balance {
+    position: relative;
+    background-color: #fff;
+    width: 145px;
+    height: 40px;
+    font-size: 0.875rem;
+    line-height: 1.295rem;
+    color: #899cb1;
+    border-radius: 48px;
+    padding: 10px 46px 9px 10px;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  
+    svg {
+      position: absolute;
+      right: 12px;
+      path{
+        fill: #005FF8;
+      }
+    }
+    &:hover {
+      .price {
+        color: #0024cb;
+      }
+      svg path {
+        fill: #0024cb;
+      }
+    }
+    &:active {
+      svg path {
+        fill: #274bc8;
+      }
+    }
+  }
+  .price {
+    white-space: nowrap;
+    color: #122945;
+  }

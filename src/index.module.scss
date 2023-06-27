@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  src: url(./style/fonts/SFPro-display/SFProDisplay-Regular.ttf)
+    format("truetype");
+}
+body {
+  margin: 0;
+  color: #122945;
+  font-size: 16px;
+  font-family: "SF Pro Display", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  background: #f1f4f9;
+}

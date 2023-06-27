@@ -1,0 +1,204 @@
+.calls {
+  position: relative;
+  min-height: 600px;
+  background-color: #fff;
+  box-shadow: 0px 4px 5px #e9edf3;
+  border-radius: 8px;
+  padding: 22px 0 57px;
+}
+.list {
+  margin: 0;
+  padding: 0;
+}
+.list-item {
+  list-style-type: none;
+}
+.list-day {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.list-day-item {
+  position: relative;
+  margin-top: -1px;
+}
+.list-item-head {
+  &:hover {
+    cursor: default;
+    background-color: transparent;
+  }
+}
+.calls-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  .calls-list-item {
+    border-top: 1px solid #eaf0fa;
+    border-bottom: 1px solid #eaf0fa;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(212, 223, 243, 0.17);
+    border-top: 1px solid #eaf0fa;
+    border-bottom: 1px solid #eaf0fa;
+    height: 65px;
+
+    .calls-list-item {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+    }
+    .playerWrap {
+      display: flex;
+    }
+    .duratTime {
+      display: none;
+    }
+  }
+}
+.calls-list-item {
+  list-style-type: none;
+  height: 64px;
+  color: #122945;
+  font-size: 0.9375rem;
+  line-height: 0.9375rem;
+  display: flex;
+  align-items: center;
+
+  &:first-child {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+}
+.last-child {
+  .calls-list-item {
+    border-bottom: 1px solid transparent;
+  }
+  &:hover {
+    .calls-list-item {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+    }
+    .calls-list {
+      border-bottom: 1px solid transparent;
+    }
+  }
+}
+.ulChecked {
+  background-color: rgba(212, 223, 243, 0.17);
+  border-top: 1px solid #eaf0fa;
+  border-bottom: 1px solid #eaf0fa;
+
+  .calls-list-item {
+    border-top: 1px transparent;
+    border-bottom: 1px transparent;
+  }
+}
+.last-child {
+  .ulChecked {
+    border-bottom: 1px solid transparent;
+  }
+}
+.list-day-item-date {
+  padding: 38px 0 17px 40px;
+  font-size: 0.9375rem;
+  line-height: 1.359rem;
+
+  &:hover {
+    cursor: default;
+    background: none;
+  }
+}
+.date {
+  position: relative;
+  left: -1px;
+}
+.length {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  color: #899cb1;
+  position: relative;
+  bottom: 5px;
+  left: 4px;
+}
+.calls-list-item-cb {
+  width: 40px;
+}
+
+.calls-list-item-type {
+  width: 53px;
+}
+.calls-list-item-time {
+  width: 89px;
+}
+.calls-list-item-ava {
+  width: 128px;
+}
+.calls-list-item-phone {
+  position: relative;
+  width: 326px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.calls-list-item-source {
+  width: 214px;
+}
+.calls-list-item-rating {
+  width: 198px;
+}
+.calls-list-item-durat {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+.calls-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+.ava-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.ava {
+  width: 32px;
+  height: 32px;
+}
+.siteIcon {
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.phoneIcon {
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.contact_name {
+  position: relative;
+  margin-bottom: 5px;
+}
+.number {
+  display: block;
+}
+.numberN {
+  color: #5e7793;
+}
+.contact_company {
+  color: #5e7793;
+}
+.playerWrap {
+  display: none;
+}
+.display {
+  display: block;
+}
