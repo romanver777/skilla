@@ -1,5 +1,5 @@
 Тестовое задание для "Skilla" - страница "Звонки"<br>
-React18(FC), redux-toolkit, scss-modules
+React18(FC), typescript, redux-toolkit, scss-modules
 
 - листинг звонков с выборкой по датам
 - выбор входящих, исходящих или всех звонков
