@@ -1,0 +1,32 @@
+.btn {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.295rem;
+  color: #5e7793;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    color: #002cfb;
+    transition: 0.3s;
+
+    svg path {
+      fill: #002cfb;
+      transition: 0.3s;
+    }
+  }
+  // &:active{
+  //   color: #002cfb;
+  // }
+}
+.btn_active {
+  color: #002cfb;
+  
+  svg path {
+    fill: #002cfb;
+  }
+}

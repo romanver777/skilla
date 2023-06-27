@@ -1,0 +1,74 @@
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  
+  &:active{
+    border: none;
+  }
+  &:visited{
+    border: none;
+  }
+}
+.player {
+  width: 352px;
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 48px;
+  background: #eaf0fa;
+  padding: 0 16px 0 18px;
+  cursor: default;
+  box-sizing: border-box;
+}
+.time {
+  color: #122945;
+  font-size: 0.9375rem;
+  font-family: "SF Pro Display", sans-serif;
+  line-height: 145%;
+  margin-right: 12px;
+}
+.control {
+  margin-right: 8px;
+}
+.bar {
+  width: 164px;
+  height: 4px;
+  border-radius: 50px;
+  margin-right: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.barBase {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #adbfdf;
+  z-index: 1;
+}
+.barTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #002cfb;
+  z-index: 2;
+  transition: 1s;
+}
+.download {
+  margin-right: 12px;
+}
+.closeHide{
+    cursor: default;
+    content: "";
+    width: 24px;
+}

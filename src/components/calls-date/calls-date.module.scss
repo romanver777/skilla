@@ -1,0 +1,41 @@
+.tr {
+  border-bottom: 1px solid #eaf0fa;
+
+  &:last-child {
+    border: none;
+  }
+}
+.td {
+  height: 65px;
+  color: #122945;
+  font-size: 0.9375rem;
+  line-height: 0.9375rem;
+  box-sizing: border-box;
+
+  &:last-child {
+    padding-right: 40px;
+    text-align: right;
+  }
+}
+.td-date {
+  height: auto;
+  padding: 38px 0 17px 40px;
+  font-size: 0.9375rem;
+  line-height: 1.359rem;
+
+  &:last-child {
+    text-align: left;
+  }
+}
+.date {
+  position: relative;
+  left: -1px;
+}
+.length {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  color: #899cb1;
+  position: relative;
+  bottom: 5px;
+  left: 4px;
+}
