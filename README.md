@@ -6,5 +6,6 @@ React18(FC), typescript, redux-toolkit, scss-modules
 - проигрывание записи (если есть)
 - сортировка на клиенте
 - меню - статика без функционала, активный раздел "Звонки"
+- ширина экрана 1920px
 
 https://skillacalls.netlify.app
