@@ -12,7 +12,7 @@ import {
 export type TActiveFilter = "3 дня" | "Неделя" | "Месяц" | "Год" | "Даты";
 
 const oneDayMs = 24 * 60 * 60 * 1000;
-const numberForThreeDays = 3;
+const numberForThreeDays = 2;
 const numberForWeek = 7;
 
 export interface IFilterDateInitialState {
@@ -79,7 +79,7 @@ export const filterDateSlice = createSlice({
           {
             state.dates.endDate = state.dates.startDate - oneDayMs;
             state.dates.startDate =
-              state.dates.startDate - numberForThreeDays * oneDayMs;
+              state.dates.startDate - (numberForThreeDays + 1) * oneDayMs;
           }
           break;
         case "Неделя":
@@ -114,7 +114,7 @@ export const filterDateSlice = createSlice({
           {
             state.dates.startDate = state.dates.endDate + oneDayMs;
             state.dates.endDate =
-              state.dates.endDate + numberForThreeDays * oneDayMs;
+              state.dates.endDate + (numberForThreeDays + 1) * oneDayMs;
           }
           break;
         case "Неделя":
