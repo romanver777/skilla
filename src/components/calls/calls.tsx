@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { useSelector } from "react-redux";
 import { useAppDispatch, TRootState, TAppDispatch } from "../../store/store";
@@ -28,7 +28,12 @@ import style from "./calls.module.scss";
 const Calls = () => {
   const dispatch: TAppDispatch = useAppDispatch();
   const dates = useSelector((state: TRootState) => state.filterDate.dates);
+  const pageNumber = useSelector((state: TRootState) => state.calls.pageNumber);
+  const defaultCallsNumber = 50;
   const calls = useSelector((state: TRootState) => state.calls.calls.results);
+  const totalCalls = useSelector(
+    (state: TRootState) => state.calls.calls.total_rows
+  );
   const loading = useSelector((state: TRootState) => state.calls.loading);
   const error = useSelector((state: TRootState) => state.calls.error);
 
@@ -41,16 +46,59 @@ const Calls = () => {
   const [hoveredId, setHoveredId] = useState<number | null>();
   const [listHovered, setListHovered] = useState(false);
   const [activeId, setActiveId] = useState<number | null>(null);
+  const [isObserve, setIsObserve] = useState(false);
+
+  const lastItemRef = useRef(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const observerCount = useRef<number>(0);
 
   const isChecked = (id: number) => !!checked.find((item) => item === id);
   const isHovered = (id: number) => hoveredId === id;
 
   useEffect(() => {
-    void dispatch(fetchCalls(dates));
+    const data = { dates, pageNumber };
+    void dispatch(fetchCalls(data));
+
     if (filteredCalls.length) setFilteredCalls([]);
     if (checked.length) setChecked([]);
     if (listHovered) setListHovered(false);
+
+    setIsObserve(false);
+    observerCount.current = 0;
   }, [dates]);
+
+  useEffect(() => {
+    if (isObserve) {
+      if (pageNumber * defaultCallsNumber <= +totalCalls) {
+        void dispatch(fetchCalls({ dates, pageNumber }));
+      } else {
+        setIsObserve(false);
+      }
+    }
+  }, [isObserve]);
+
+  const lastItemViewed = (entries: IntersectionObserverEntry[]) => {
+    if (
+      observerCount.current &&
+      entries[0].isIntersecting &&
+      entries[0].intersectionRatio > 0
+    ) {
+      setIsObserve(true);
+    }
+    if (observerCount.current < 1) observerCount.current++;
+  };
+
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(lastItemViewed);
+
+    if (lastItemRef.current) {
+      if (observerRef.current) observerRef.current.observe(lastItemRef.current);
+    }
+  }, [lastItemRef]);
 
   useEffect(() => {
     if (calls.length) {
@@ -65,6 +113,7 @@ const Calls = () => {
           setFilteredCalls(calls);
       }
     }
+    if (isObserve) setIsObserve(false);
   }, [calls, activeFilterType]);
 
   const handleCheckboxClick = (id?: number) => {
@@ -196,21 +245,6 @@ const Calls = () => {
                               className={style.phoneIcon}
                             />
                           )}
-                          {/* {isChecked(call.id) ? (
-                            <img
-                              src={phoneIcon}
-                              alt="Телефон"
-                              className={style.phoneIcon}
-                            />
-                          ) : isHovered(call.id) ? (
-                            <img
-                              src={phoneIcon}
-                              alt="Телефон"
-                              className={style.phoneIcon}
-                            />
-                          ) : (
-                            ""
-                          )} */}
                           <span className={style.contact_name}>
                             {call.contact_name}
                           </span>
@@ -270,6 +304,8 @@ const Calls = () => {
           </div>
         )}
       </div>
+      {isObserve && loading && <Loader bottom={true} />}
+      <div ref={lastItemRef}></div>
     </div>
   );
 };

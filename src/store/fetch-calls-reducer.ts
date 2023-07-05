@@ -3,22 +3,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDateForFetch } from "../utils/utils";
 import { TCalls } from "../types/calls-types";
 
-type TDates = {
-  startDate: number;
-  endDate: number;
+type TDatesPages = {
+  dates: {
+    startDate: number;
+    endDate: number;
+  };
+  pageNumber: number;
 };
 
 export const fetchCalls = createAsyncThunk<
   TCalls,
-  TDates,
+  TDatesPages,
   { rejectValue: string }
->("calls/fetchCalls", async (dates, thunkApi) => {
-  const start = getDateForFetch(dates.startDate);
-  const end = getDateForFetch(dates.endDate);
+>("calls/fetchCalls", async (data, thunkApi) => {
+  const start = getDateForFetch(data.dates.startDate);
+  const end = getDateForFetch(data.dates.endDate);
+  const offset = data.pageNumber * 50;
 
   try {
     const response = await fetch(
-      `https://api.skilla.ru/mango/getList?date_start=${start}&date_end=${end}`,
+      `https://api.skilla.ru/mango/getList?date_start=${start}&date_end=${end}&offset=${offset}`,
       {
         method: "POST",
         headers: { Authorization: "Bearer testtoken" },
@@ -35,6 +39,7 @@ export interface ICallsInitialState {
   calls: TCalls;
   loading: boolean;
   error: string | null;
+  pageNumber: number;
 }
 
 const initialState: ICallsInitialState = {
@@ -44,12 +49,20 @@ const initialState: ICallsInitialState = {
   },
   loading: false,
   error: null,
+  pageNumber: 0,
 };
 
 export const fetchCallsSlice = createSlice({
   name: "fetch-calls",
   initialState,
-  reducers: {},
+  reducers: {
+    addPageNumber: (state) => {
+      state.pageNumber = state.pageNumber + 1;
+    },
+    resetPageNumber: (state) => {
+      state.pageNumber = 0;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCalls.pending, (state) => {
@@ -58,7 +71,16 @@ export const fetchCallsSlice = createSlice({
       })
       .addCase(fetchCalls.fulfilled, (state, action) => {
         state.loading = false;
-        state.calls = action.payload;
+
+        if (state.pageNumber > 0) {
+          state.calls.results = [
+            ...state.calls.results,
+            ...action.payload.results,
+          ];
+        } else {
+          state.calls = action.payload;
+        }
+        state.pageNumber++;
       })
       .addCase(fetchCalls.rejected, (state, action) => {
         state.loading = false;
@@ -67,4 +89,5 @@ export const fetchCallsSlice = createSlice({
   },
 });
 
+export const { addPageNumber, resetPageNumber } = fetchCallsSlice.actions;
 export default fetchCallsSlice.reducer;

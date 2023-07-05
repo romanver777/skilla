@@ -7,6 +7,7 @@ import {
   setDefaultDates,
   setCastomDates,
 } from "../../store/filter-date-reducer";
+import { resetPageNumber } from "../../store/fetch-calls-reducer";
 import * as selectors from "../../store/selectors";
 
 import Icons from "../icons/icons";
@@ -32,6 +33,7 @@ const PopupDp = ({ onHandleClick }: TProps) => {
       setStartDate(getDateForView(sDate));
       setEndDate(getDateForView(eDate));
     }
+    dispatch(resetPageNumber());
   }, [activeFilter]);
 
   const onHandleDateClick = () => {

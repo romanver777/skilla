@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setBackDates, setForwardDates } from "../../store/filter-date-reducer";
+import { resetPageNumber } from "../../store/fetch-calls-reducer";
 import { TAppDispatch } from "../../store/store";
 import * as selectors from "../../store/selectors";
 
@@ -17,10 +18,16 @@ const Datepicker = () => {
   const [openDp, setOpenDp] = useState(false);
 
   const handleBackClick = () => {
-    if (activeFilter !== list[list.length - 1]) dispatch(setBackDates());
+    if (activeFilter !== list[list.length - 1]) {
+      dispatch(setBackDates());
+      dispatch(resetPageNumber());
+    }
   };
   const handleForwardClick = () => {
-    if (activeFilter !== list[list.length - 1]) dispatch(setForwardDates());
+    if (activeFilter !== list[list.length - 1]) {
+      dispatch(setForwardDates());
+      dispatch(resetPageNumber());
+    }
   };
 
   return (
