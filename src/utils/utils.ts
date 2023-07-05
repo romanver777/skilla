@@ -62,9 +62,10 @@ export const getDefaultThreeDaysDates = (date: number) => {
 
 export const getDefaultWeekDates = (date: number) => {
   const oneDayMs = 24 * 60 * 60 * 1000;
-  const day = new Date(date).getDay();
-  const toEndWeek = 7 - day ? 7 - day : 1;
-  const toStartWeek = day - 1 ? day - 1 : 1;
+  let day = new Date(date).getDay();
+  if (!day) day = 7;
+  const toEndWeek = 7 - day;
+  const toStartWeek = day - 1;
 
   return {
     start: date - toStartWeek * oneDayMs,
@@ -108,7 +109,7 @@ export const getFirstDayofMonthByDate = (date: number) => {
 export const getLastDayofMonthByDate = (date: number) => {
   const month = new Date(date).getMonth() + 1;
   const year = new Date(date).getFullYear();
-  const endDay = new Date(year, 12, 0).getDate();
+  const endDay = new Date(year, month, 0).getDate();
 
   return new Date(`${year}-${month}-${endDay}`).getTime();
 };
