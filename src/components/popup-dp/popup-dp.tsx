@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, RefObject } from "react";
 import InputMask from "react-input-mask";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +16,10 @@ import style from "./popup-dp.module.scss";
 
 type TProps = {
   onHandleClick: () => void;
+  dpRef: RefObject<HTMLDivElement>;
 };
 
-const PopupDp = ({ onHandleClick }: TProps) => {
+const PopupDp = ({ onHandleClick, dpRef }: TProps) => {
   const dispatch = useDispatch();
   const list = useSelector(selectors.getFilterDateList);
   const activeFilter = useSelector(selectors.getActiveFilter);
@@ -27,6 +28,7 @@ const PopupDp = ({ onHandleClick }: TProps) => {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const dPopupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (activeFilter === list[list.length - 1]) {
@@ -35,6 +37,23 @@ const PopupDp = ({ onHandleClick }: TProps) => {
     }
     dispatch(resetPageNumber());
   }, [activeFilter]);
+
+  useEffect(() => {
+    const onHandleClickOutside = (e: MouseEvent) => {
+      if (
+        dPopupRef.current &&
+        !dPopupRef.current.contains(e.target as Element) &&
+        (e.target as HTMLElement).parentElement !== dpRef.current
+      ) {
+        onHandleClick();
+      }
+    };
+
+    document.addEventListener("mousedown", onHandleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", onHandleClickOutside);
+    };
+  }, [dPopupRef]);
 
   const onHandleDateClick = () => {
     if (isValid(startDate.split(".")) && isValid(endDate.split("."))) {
@@ -53,7 +72,7 @@ const PopupDp = ({ onHandleClick }: TProps) => {
   };
 
   return (
-    <div className={style["dp-panel"]}>
+    <div className={style["dp-panel"]} ref={dPopupRef}>
       <ul className={style["dp-panel__list"]}>
         {list.slice(0, -1).map((item) => {
           const styleItem =
