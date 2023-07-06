@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import * as selectors from "../../store/selectors";
@@ -11,11 +11,30 @@ type TProps = {
   name: string;
   list?: string[];
   onHandleClick: () => void;
+  itemRef: RefObject<HTMLDivElement>;
 };
 
-const PopupFilter = ({ name, list, onHandleClick }: TProps) => {
+const PopupFilter = ({ name, list, onHandleClick, itemRef }: TProps) => {
   const dispatch: TAppDispatch = useDispatch();
   const activeFilter = useSelector(selectors.getFilterCallsByName(name));
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(e.target as Element) &&
+        e.target !== itemRef.current
+      ) {
+        onHandleClick();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRef]);
 
   const onFilterClick = (item: string) => {
     if (item !== activeFilter) dispatch(setActiveFilterCalls({ name, item }));
@@ -23,7 +42,7 @@ const PopupFilter = ({ name, list, onHandleClick }: TProps) => {
   };
 
   return (
-    <div className={style.popup}>
+    <div className={style.popup} ref={popupRef}>
       <ul className={style.list}>
         {list?.map((item) => {
           const liStyle =

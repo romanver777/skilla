@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { TAppDispatch } from "../../store/store";
@@ -18,6 +18,7 @@ const FiltersItem = ({ name, list }: TProps) => {
   const dispatch: TAppDispatch = useDispatch();
   const activeFilter = useSelector(selectors.getFilterCallsByName(name));
   const isDefaultFilter = useSelector(selectors.getIsDefaultFilter(name));
+  const itemRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const btnStyle = isOpen
@@ -44,7 +45,7 @@ const FiltersItem = ({ name, list }: TProps) => {
 
   return (
     <>
-      <button className={btnStyle} onClick={onHandleOpenClick}>
+      <button className={btnStyle} onClick={onHandleOpenClick} ref={itemRef}>
         {activeFilter || name}
         {isOpen ? (
           <Icons name="arrow" direction="up" />
@@ -56,6 +57,7 @@ const FiltersItem = ({ name, list }: TProps) => {
         <PopupFilter
           name={name}
           list={list}
+          itemRef={itemRef}
           onHandleClick={() => setIsOpen(false)}
         />
       )}
