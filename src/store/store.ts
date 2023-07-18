@@ -11,6 +11,7 @@ export const store = configureStore({
     filterDate: filterDateReducer,
     filtersCalls: filterCallsReducer,
   },
+  devTools: process.env.NODE_ENV === "development",
 });
 
 export type TRootState = ReturnType<typeof store.getState>;
