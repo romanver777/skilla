@@ -15,8 +15,8 @@ const App = () => {
       <Header />
       <main className={style.main}>
         <Routes>
-          <Route path="calls" element={<PageCalls />} />
-          <Route path="*" element={<Navigate to="calls" replace />} />
+          <Route path="/calls" element={<PageCalls />} />
+          <Route path="*" element={<Navigate to="/calls" replace />} />
         </Routes>
       </main>
       <Sidebar activePage={pathname.slice(1)} />
